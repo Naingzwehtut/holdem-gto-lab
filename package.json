@@ -1,0 +1,46 @@
+{
+  "name": "holdem-gto-lab",
+  "version": "1.0.0",
+  "description": "Free, open-source Texas Hold'em study lab: preflop charts, spot analyzer, equity calculator, hand history review and GTO drills. Runs in the browser with zero build step.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "author": "Naingzwehtut",
+  "homepage": "https://naingzwehtut.github.io/holdem-gto-lab/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Naingzwehtut/holdem-gto-lab.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Naingzwehtut/holdem-gto-lab/issues"
+  },
+  "keywords": [
+    "poker",
+    "texas-holdem",
+    "gto",
+    "game-theory",
+    "equity-calculator",
+    "poker-solver",
+    "hand-evaluator",
+    "preflop-charts",
+    "hand-history",
+    "poker-trainer"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node scripts/serve.js",
+    "test": "node --test \"tests/*.test.js\"",
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{js,css,md,json,yml}\"",
+    "format:check": "prettier --check \"**/*.{js,css,md,json,yml}\"",
+    "check": "npm run lint && npm test"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.32.0",
+    "eslint": "^9.32.0",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2"
+  }
+}

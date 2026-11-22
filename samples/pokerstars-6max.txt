@@ -1,0 +1,94 @@
+PokerStars Hand #250000000001:  Hold'em No Limit ($0.05/$0.10 USD) - 2026/11/20 21:14:05 ET
+Table 'Andromeda V' 6-max Seat #4 is the button
+Seat 1: Villain1 ($10.00 in chips)
+Seat 2: Villain2 ($12.40 in chips)
+Seat 3: Villain3 ($9.80 in chips)
+Seat 4: Hero ($10.00 in chips)
+Seat 5: Villain5 ($10.00 in chips)
+Seat 6: Villain6 ($15.25 in chips)
+Villain5: posts small blind $0.05
+Villain6: posts big blind $0.10
+*** HOLE CARDS ***
+Dealt to Hero [Kh Qh]
+Villain1: folds
+Villain2: folds
+Villain3: folds
+Hero: raises $0.15 to $0.25
+Villain5: folds
+Villain6: calls $0.15
+*** FLOP *** [Qs 7h 2d]
+Villain6: checks
+Hero: bets $0.18
+Villain6: calls $0.18
+*** TURN *** [Qs 7h 2d] [9c]
+Villain6: bets $0.62
+Hero: calls $0.62
+*** RIVER *** [Qs 7h 2d 9c] [3s]
+Villain6: bets $1.40
+Hero: calls $1.40
+*** SHOW DOWN ***
+Villain6: shows [Qd 9d] (two pair, Queens and Nines)
+Hero: mucks hand
+Villain6 collected $4.82 from pot
+*** SUMMARY ***
+Total pot $4.95 | Rake $0.13
+Board [Qs 7h 2d 9c 3s]
+Seat 4: Hero (button) mucked [Kh Qh]
+Seat 6: Villain6 (big blind) showed [Qd 9d] and won ($4.82) with two pair, Queens and Nines
+
+PokerStars Hand #250000000002:  Hold'em No Limit ($0.05/$0.10 USD) - 2026/11/20 21:15:12 ET
+Table 'Andromeda V' 6-max Seat #2 is the button
+Seat 1: Villain1 ($10.00 in chips)
+Seat 2: Villain2 ($12.40 in chips)
+Seat 3: Villain3 ($9.80 in chips)
+Seat 4: Hero ($7.55 in chips)
+Seat 5: Villain5 ($10.00 in chips)
+Seat 6: Villain6 ($19.97 in chips)
+Villain3: posts small blind $0.05
+Hero: posts big blind $0.10
+*** HOLE CARDS ***
+Dealt to Hero [As 5s]
+Villain5: folds
+Villain6: folds
+Villain1: raises $0.15 to $0.25
+Villain2: folds
+Villain3: folds
+Hero: raises $0.75 to $0.85
+Villain1: folds
+Uncalled bet ($0.60) returned to Hero
+Hero collected $0.55 from pot
+Hero: doesn't show hand
+*** SUMMARY ***
+Total pot $0.55 | Rake $0
+Seat 4: Hero (big blind) collected ($0.55)
+
+PokerStars Hand #250000000003:  Hold'em No Limit ($0.05/$0.10 USD) - 2026/11/20 21:16:40 ET
+Table 'Andromeda V' 6-max Seat #1 is the button
+Seat 1: Villain1 ($10.00 in chips)
+Seat 2: Villain2 ($12.40 in chips)
+Seat 3: Villain3 ($9.80 in chips)
+Seat 4: Hero ($8.05 in chips)
+Seat 5: Villain5 ($10.00 in chips)
+Seat 6: Villain6 ($19.97 in chips)
+Villain2: posts small blind $0.05
+Villain3: posts big blind $0.10
+*** HOLE CARDS ***
+Dealt to Hero [9c 8d]
+Hero: raises $0.15 to $0.25
+Villain5: folds
+Villain6: folds
+Villain1: folds
+Villain2: folds
+Villain3: calls $0.15
+*** FLOP *** [Ah Kc 4d]
+Villain3: checks
+Hero: checks
+*** TURN *** [Ah Kc 4d] [Js]
+Villain3: bets $0.30
+Hero: folds
+Uncalled bet ($0.30) returned to Villain3
+Villain3 collected $0.53 from pot
+Villain3: doesn't show hand
+*** SUMMARY ***
+Total pot $0.55 | Rake $0.02
+Board [Ah Kc 4d Js]

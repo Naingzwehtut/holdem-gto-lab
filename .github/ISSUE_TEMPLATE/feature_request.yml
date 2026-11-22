@@ -1,0 +1,22 @@
+name: Feature request
+description: Suggest a new spot, format, drill or improvement
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like?
+      description: Describe the feature and the study problem it solves.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why is it useful?
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Responsible use
+      options:
+        - label: This feature is for study or post-session review, not for use during live play.
+          required: true

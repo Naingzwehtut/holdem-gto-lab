@@ -1,0 +1,37 @@
+name: Bug report
+description: Something works incorrectly
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Ranges
+        - Spot analyzer
+        - Equity calculator
+        - Hand history import
+        - Screenshot scanner
+        - Practice
+        - Lessons
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: input
+    attributes:
+      label: Input to reproduce
+      description: Cards, ranges, or an anonymised hand history. Remove real player names.
+      render: text
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and OS
+      placeholder: Chrome 131 on Windows 11

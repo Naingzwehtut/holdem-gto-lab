@@ -1,0 +1,38 @@
+Poker Hand #RC1800000001: Hold'em No Limit ($0.02/$0.05) - 2026/11/21 19:02:11
+Table 'NLHGold12' 6-max Seat #6 is the button
+Seat 1: 4f8a21c9 ($5.12 in chips)
+Seat 2: Hero ($5.00 in chips)
+Seat 3: 77be01d3 ($4.40 in chips)
+Seat 4: c19e0a55 ($6.85 in chips)
+Seat 5: 0a9d3f12 ($5.00 in chips)
+Seat 6: e2b7c6f0 ($3.95 in chips)
+4f8a21c9: posts small blind $0.02
+Hero: posts big blind $0.05
+*** HOLE CARDS ***
+Dealt to 4f8a21c9
+Dealt to Hero [Jd Td]
+Dealt to 77be01d3
+Dealt to c19e0a55
+Dealt to 0a9d3f12
+Dealt to e2b7c6f0
+77be01d3: folds
+c19e0a55: folds
+0a9d3f12: folds
+e2b7c6f0: raises $0.08 to $0.13
+4f8a21c9: folds
+Hero: calls $0.08
+*** FLOP *** [Td 6c 2h]
+Hero: checks
+e2b7c6f0: bets $0.09
+Hero: raises $0.21 to $0.30
+e2b7c6f0: calls $0.21
+*** TURN *** [Td 6c 2h] [Ks]
+Hero: bets $0.55
+e2b7c6f0: folds
+Uncalled bet ($0.55) returned to Hero
+*** SHOWDOWN ***
+Hero collected $0.83 from pot
+*** SUMMARY ***
+Total pot $0.88 | Rake $0.04 | Jackpot $0.01 | Bingo $0 | Fortune $0 | Tax $0
+Board [Td 6c 2h Ks]
+Seat 2: Hero (big blind) won ($0.83)

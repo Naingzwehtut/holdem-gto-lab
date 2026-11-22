@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Hold'em GTO Lab</title>
+  <meta name="description" content="Free, open-source Texas Hold'em study lab: solver-style preflop charts, a postflop spot analyzer, equity calculator, hand history review, practice drills and GTO lessons. Runs entirely in your browser.">
+  <meta property="og:title" content="Hold'em GTO Lab">
+  <meta property="og:description" content="Preflop charts, spot analyzer, equity calculator, hand history review and GTO drills. Free and open source.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="docs/screenshots/ranges.jpg">
+  <meta name="theme-color" content="#162020">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='5' y='4' width='15' height='22' rx='3' fill='%23fff' stroke='%23162020' stroke-width='2' transform='rotate(-8 12 15)'/%3E%3Crect x='12' y='6' width='15' height='22' rx='3' fill='%23e6a445' transform='rotate(7 19 17)'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap">
+  <link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#ranges"><span class="brand-mark" aria-hidden="true"><span></span><span></span></span>Hold'em GTO Lab</a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="#ranges">Ranges</a>
+      <a href="#analyzer">Spot analyzer</a>
+      <a href="#equity">Equity</a>
+      <a href="#review">Review</a>
+      <a href="#practice">Practice</a>
+      <a href="#learn">Learn GTO</a>
+    </nav>
+    <a class="gh-link" href="https://github.com/Naingzwehtut/holdem-gto-lab" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      GitHub
+    </a>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ============ RANGES ============ -->
+<section class="view" id="v-ranges" hidden>
+  <div class="view-head">
+    <span class="eyebrow">6-max cash · 100bb · 2.5bb opens</span>
+    <h1>Preflop ranges</h1>
+    <p class="lede">Pick a spot, then click any hand to see how often it raises, calls or folds, its equity against the opener, and why.</p>
+  </div>
+  <div class="spotbar" id="spotBar"></div>
+  <div class="rg-layout">
+    <div class="panel">
+      <div class="row between">
+        <h2 id="rgTitle">Range</h2>
+        <div class="seg" role="group" aria-label="Grid mode">
+          <button type="button" data-mode="chart" aria-pressed="true">Chart</button>
+          <button type="button" data-mode="build" aria-pressed="false">Build your own</button>
+        </div>
+      </div>
+      <p class="muted" id="rgSub"></p>
+      <div class="gridwrap"><div class="grid" id="rgGrid"></div></div>
+      <div class="legend" id="rgLegend"></div>
+      <div id="rgBuild" hidden>
+        <div class="row">
+          <span class="muted small-text">Brush weight</span>
+          <div class="seg" id="brush" role="group" aria-label="Brush weight">
+            <button type="button" data-w="1" aria-pressed="true">100%</button>
+            <button type="button" data-w="0.5" aria-pressed="false">50%</button>
+            <button type="button" data-w="0.25" aria-pressed="false">25%</button>
+            <button type="button" data-w="0" aria-pressed="false">Erase</button>
+          </div>
+        </div>
+        <label class="field mt-6">Range text (edit and press Load, or click and drag on the grid)
+          <textarea id="bdText" spellcheck="false"></textarea>
+        </label>
+        <div class="row mt-6">
+          <button class="btn small" id="bdLoad" type="button">Load text</button>
+          <button class="btn small" id="bdCopy" type="button">Copy</button>
+          <button class="btn small" id="bdFromSpot" type="button">Start from this chart</button>
+          <button class="btn small" id="bdClear" type="button">Clear</button>
+          <button class="btn small" id="bdToEq" type="button">Use in equity calculator</button>
+        </div>
+      </div>
+    </div>
+    <aside class="panel" id="rgDetail" aria-live="polite"></aside>
+  </div>
+  <p class="fine">These charts are simplified approximations of published solver solutions (6-max, 100bb, no ante, low rake). Real solver output shifts with open size, rake and stack depth, so treat them as a baseline to study from, not exact numbers.</p>
+</section>
+
+<!-- ============ ANALYZER ============ -->
+<section class="view" id="v-analyzer" hidden>
+  <div class="view-head">
+    <span class="eyebrow">Postflop decision</span>
+    <h1>Spot analyzer</h1>
+    <p class="lede">Enter your hand, the board, the opponent's likely range and the bet you face. You get your equity, the price you're getting, minimum defense, and what the opponent's range is made of on this board. Import a hand on the Review page to fill this in automatically.</p>
+  </div>
+  <div class="split">
+    <form class="panel" id="anForm" autocomplete="off">
+      <div class="two">
+        <label class="field">Your hand<input type="text" id="anHero" value="KhQh" spellcheck="false"></label>
+        <label class="field">Board (3 to 5 cards)<input type="text" id="anBoard" value="Qs7h2d9c" spellcheck="false"></label>
+      </div>
+      <div class="preview" id="anPreview"></div>
+      <label class="field">Opponent's range
+        <select id="anPreset"></select>
+      </label>
+      <textarea id="anRange" spellcheck="false" aria-label="Opponent range text"></textarea>
+      <p class="muted small-text" id="anRangeInfo"></p>
+      <div class="two">
+        <label class="field">Pot before the bet (bb)<input type="number" id="anPot" value="9.1" min="0" step="0.5"></label>
+        <label class="field">Bet you face (bb, 0 if checked to you)<input type="number" id="anBet" value="6.2" min="0" step="0.5"></label>
+      </div>
+      <p class="err" id="anErr"></p>
+    </form>
+    <div class="panel" id="anOut" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ============ EQUITY ============ -->
+<section class="view" id="v-equity" hidden>
+  <div class="view-head">
+    <span class="eyebrow">Hand vs hand · hand vs range</span>
+    <h1>Equity calculator</h1>
+    <p class="lede">Click a card slot, then pick cards below. Any player can hold exact cards, a range, or a random hand. Results update as you change things.</p>
+  </div>
+  <div class="split">
+    <div class="panel">
+      <div class="players" id="eqPlayers"></div>
+      <div class="row">
+        <button class="btn small" id="eqAdd" type="button">Add player</button>
+        <button class="btn small" id="eqClear" type="button">Clear all cards</button>
+      </div>
+      <div>
+        <h3 class="mb-8">Board</h3>
+        <div class="cards" id="eqBoard"></div>
+      </div>
+      <div class="picker" id="eqPicker" aria-label="Card picker"></div>
+    </div>
+    <div class="panel" id="eqResults" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ============ REVIEW ============ -->
+<section class="view" id="v-review" hidden>
+  <div class="view-head">
+    <span class="eyebrow">After the session</span>
+    <h1>Session review</h1>
+    <p class="lede">Import the hand histories your poker client saves, or scan a screenshot of a finished hand. Every decision opens straight in the analyzer.</p>
+  </div>
+  <p class="notice">For study after you play. This tool never connects to a poker client or reads a live table. Using any assistance while a hand is in progress breaks the rules of every major poker site.</p>
+  <div class="split">
+    <div class="panel">
+      <h2>Hand history import</h2>
+      <p class="muted small-text">Supports PokerStars and GGPoker cash-game text histories. Find them in your client's hand history folder, or copy a hand from the replayer.</p>
+      <textarea id="hhText" rows="6" spellcheck="false" placeholder="PokerStars Hand #…" aria-label="Hand history text"></textarea>
+      <div class="row">
+        <button class="btn primary" id="hhImport" type="button">Import hands</button>
+        <button class="btn" id="hhSample" type="button">Load sample hands</button>
+        <label class="btn">Choose .txt files<input type="file" id="hhFile" accept=".txt,text/plain" multiple hidden></label>
+      </div>
+      <p class="err" id="hhMsg"></p>
+      <div id="hhSummary"></div>
+      <div id="hhList"></div>
+    </div>
+    <div class="panel" id="hhDetail" aria-live="polite"></div>
+  </div>
+
+  <div class="panel">
+    <div class="row between"><h2>Screenshot scanner</h2><span class="muted tiny">runs in your browser · nothing is uploaded</span></div>
+    <p class="muted small-text">Drop a screenshot of a finished hand. The scanner finds the cards, reads rank and suit, and guesses which are yours and which are the board. Check its reading before you analyze: four-colour decks and large card indices scan best.</p>
+    <div class="drop" id="scDrop">
+      <span>Drop an image here, paste one with Ctrl+V, or</span>
+      <div class="row center">
+        <label class="btn">Choose image<input type="file" id="scFile" accept="image/*" hidden></label>
+        <button class="btn" id="scDemo" type="button">Try a generated table</button>
+        <label class="row tight small-text"><input type="checkbox" id="scFour" checked> four-colour deck</label>
+      </div>
+    </div>
+    <div class="split">
+      <div class="scan-stage" id="scStage" hidden><canvas id="scCanvas" aria-label="Scanned image with detected cards outlined"></canvas></div>
+      <div id="scOut"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRACTICE ============ -->
+<section class="view" id="v-practice" hidden>
+  <div class="view-head">
+    <span class="eyebrow">Drills</span>
+    <h1>Practice</h1>
+    <p class="lede">Short reps that build the instincts behind GTO play. Your scores stay in this browser.</p>
+  </div>
+  <div class="row between">
+    <div class="seg" id="drillTabs" role="group" aria-label="Drill">
+      <button type="button" data-d="pf" aria-pressed="true">Preflop trainer</button>
+      <button type="button" data-d="math" aria-pressed="false">Pot math</button>
+      <button type="button" data-d="eq" aria-pressed="false">Equity guess</button>
+    </div>
+    <button class="btn small" id="resetStats" type="button">Reset scores</button>
+  </div>
+  <div class="split">
+    <div class="panel drill-card" id="drill"></div>
+    <div class="panel" id="drillSide"></div>
+  </div>
+</section>
+
+<!-- ============ LEARN ============ -->
+<section class="view" id="v-learn" hidden>
+  <div class="view-head">
+    <span class="eyebrow">Course</span>
+    <h1>Learn GTO</h1>
+    <p class="lede">The handful of ideas that explain most solver output. Each lesson has a small tool so you can test the idea yourself.</p>
+  </div>
+  <div class="learn">
+    <nav class="toc" aria-label="Lessons">
+      <a href="#learn" data-to="l-gto">What GTO means</a>
+      <a href="#learn" data-to="l-odds">Pot odds</a>
+      <a href="#learn" data-to="l-mdf">Defense and bluffing math</a>
+      <a href="#learn" data-to="l-combos">Combos and blockers</a>
+      <a href="#learn" data-to="l-pos">Ranges and position</a>
+      <a href="#learn" data-to="l-polar">Polarized vs merged</a>
+      <a href="#learn" data-to="l-mix">Mixed strategies</a>
+      <a href="#learn" data-to="l-exploit">When to deviate</a>
+    </nav>
+    <div>
+      <article class="lesson" id="l-gto">
+        <span class="k">LESSON 1</span>
+        <h2>What GTO means</h2>
+        <p>Game theory optimal play is a <strong>Nash equilibrium</strong>: a pair of strategies where neither player can win more by changing only their own. If you play it, no opponent strategy can beat you in the long run. The best they can do is break even against you, minus the mistakes they make.</p>
+        <p>That is the key trade. GTO is <em>unexploitable</em>, not <em>maximally profitable</em>. Against a player who never bluffs, folding your bluff-catchers earns more than the equilibrium does. That kind of adjustment is called exploitative play.</p>
+        <p>Solvers find equilibria for simplified games: fixed stack depths, a menu of two or three bet sizes, set ranges going in. Their output is a map, not the territory. The goal of study is to learn the reasons behind the map, so you can rebuild good decisions at the table without memorizing trees.</p>
+        <ul>
+          <li><strong>Think in ranges.</strong> You never play one hand. You play every hand you'd hold in this spot.</li>
+          <li><strong>Make opponents indifferent.</strong> Balanced bet and bluff ratios leave them no profitable counter.</li>
+          <li><strong>Protect weak spots.</strong> If you always check your weak hands, your checks become easy to attack.</li>
+        </ul>
+      </article>
+
+      <article class="lesson" id="l-odds">
+        <span class="k">LESSON 2</span>
+        <h2>Pot odds</h2>
+        <p>When an opponent bets <var>B</var> into a pot of <var>P</var>, you risk <var>B</var> to win <var>P + B</var>. The call breaks even when your equity equals your share of the final pot.</p>
+        <div class="formula">equity needed = B ÷ (P + 2B)</div>
+        <div class="widget">
+          <span class="wt">Try it</span>
+          <div class="two">
+            <label class="field">Pot (bb)<input type="number" id="poP" value="10" min="0" step="0.5"></label>
+            <label class="field">Bet (bb)<input type="number" id="poB" value="5" min="0" step="0.5"></label>
+          </div>
+          <div id="poOut"></div>
+        </div>
+        <p>Common sizes are worth memorizing: a third of the pot needs 20%, half pot 25%, two-thirds 28.6%, pot 33.3%, and a 2x overbet 40%.</p>
+        <p>Before the river, raw pot odds understate some hands and overstate others. Draws to the nuts can win extra later (implied odds). Weak hands out of position often can't realize their full equity because they fold to later bets.</p>
+      </article>
+
+      <article class="lesson" id="l-mdf">
+        <span class="k">LESSON 3</span>
+        <h2>Defense and bluffing math</h2>
+        <p>Three numbers come from the same bet size, and solvers lean on all of them.</p>
+        <ul>
+          <li><strong>Fold equity a pure bluff needs:</strong> B ÷ (P + B). A pot-size bluff with no equity must work half the time.</li>
+          <li><strong>Minimum defense frequency (MDF):</strong> P ÷ (P + B). Fold more than this and the bettor profits by betting any two cards.</li>
+          <li><strong>Bluff share of a balanced river bet:</strong> B ÷ (P + 2B). This mixes bluffs so the caller's bluff-catchers break even. It equals the caller's pot odds.</li>
+        </ul>
+        <div class="widget">
+          <span class="wt">Bet size explorer</span>
+          <label class="field">Bet size: <span id="bsLabel" class="mono"></span>
+            <input type="range" id="bsSlider" min="10" max="200" value="75" step="5">
+          </label>
+          <div class="stat-row" id="bsStats"></div>
+          <div class="chart" id="bsChart"></div>
+        </div>
+        <p>Bigger bets need fewer folds per bet to show a profit, but each one asks for more folds as a share of the time. They also let you carry more bluffs, because the caller is getting a worse price. That is why polarized ranges like big sizes.</p>
+        <p>MDF is strictest on the river. On earlier streets you can fold a little more than MDF because some of your continuing hands will have to fold later anyway, and the bettor's bluffs still have equity.</p>
+      </article>
+
+      <article class="lesson" id="l-combos">
+        <span class="k">LESSON 4</span>
+        <h2>Combos and blockers</h2>
+        <p>There are 1,326 starting hands. Each pocket pair has <strong>6</strong> combos, each suited hand <strong>4</strong>, and each offsuit hand <strong>12</strong>. So AK (16 combos) is far more common than AA (6).</p>
+        <p>Cards you can see remove combos from your opponent's range. That is card removal, and the cards doing it are called blockers. Holding the A♠ cuts AA from 6 combos to 3 and AK from 16 to 12. It's why A5s is a favourite 3-bet bluff: it makes it less likely the opponent has the hands that would 4-bet you.</p>
+        <div class="widget">
+          <span class="wt">Combo counter</span>
+          <div class="two">
+            <label class="field">Opponent hand or range<input type="text" id="ccHand" value="AA,KK,AK" spellcheck="false"></label>
+            <label class="field">Cards you can see<input type="text" id="ccDead" value="As" spellcheck="false"></label>
+          </div>
+          <div id="ccOut"></div>
+        </div>
+      </article>
+
+      <article class="lesson" id="l-pos">
+        <span class="k">LESSON 5</span>
+        <h2>Ranges and position</h2>
+        <p>Opening ranges widen as fewer players are left to act. From UTG five players can wake up with a strong hand, so the solver opens about 18% of hands. From the button only the blinds remain, and it opens over 40%.</p>
+        <p>Position matters because the player who acts last sees more before deciding. They realize more of their equity: they get to check back marginal hands, take free cards and bluff with better information. Hands like suited connectors gain the most from position and lose the most without it.</p>
+        <p>Facing a raise, your range splits three ways: hands strong enough to 3-bet for value, hands that play well as a call, and a slice of bluffs, often suited aces and suited connectors that block strong hands and play well when called. <a href="#ranges">Open the range charts</a> and compare BB against UTG with BB against the button.</p>
+      </article>
+
+      <article class="lesson" id="l-polar">
+        <span class="k">LESSON 6</span>
+        <h2>Polarized vs merged ranges</h2>
+        <p>A <strong>polarized</strong> betting range holds very strong hands and bluffs, with medium hands checked. It suits large bets and overbets, especially on the river, where medium hands gain little from betting.</p>
+        <p>A <strong>merged</strong> (or linear) range bets strong and medium hands together. It suits small bets, used when the opponent has many weak hands that can call a small bet but not a big one.</p>
+        <p>Which one the solver picks comes down to two advantages. <em>Range advantage</em>: whose range has more equity overall on this board. <em>Nut advantage</em>: who has more of the very best hands. A big nut advantage points to big bets. A range advantage without the nuts points to frequent small bets, like the preflop raiser betting a third of the pot on A-7-2 rainbow.</p>
+      </article>
+
+      <article class="lesson" id="l-mix">
+        <span class="k">LESSON 7</span>
+        <h2>Mixed strategies</h2>
+        <p>Charts show some hands 3-betting 50% and calling 50%. That's no glitch. At equilibrium, a hand that mixes earns the same EV with each action. The solver splits between them because doing only one would unbalance the range and give the opponent something to exploit.</p>
+        <p>For a human, two lessons follow. First, mixed hands are the ones where getting it "wrong" costs the least, so don't agonize over them. Second, if you want to mix, use a random trigger such as the second hand on a watch (0–29 call, 30–59 raise) instead of your mood.</p>
+        <p>Many players simplify: they pick the action with the higher frequency and play it every time. That gives up a little EV and is a fine way to start.</p>
+      </article>
+
+      <article class="lesson" id="l-exploit">
+        <span class="k">LESSON 8</span>
+        <h2>When to deviate</h2>
+        <p>GTO is a baseline that protects you when you don't know your opponent. Once you have evidence, move away from it on purpose:</p>
+        <ul>
+          <li><strong>Opponent calls too much:</strong> bluff less, value-bet thinner and larger.</li>
+          <li><strong>Opponent folds too much:</strong> bluff more often, especially with small bets.</li>
+          <li><strong>Opponent rarely bluffs big rivers:</strong> fold more bluff-catchers than MDF says.</li>
+          <li><strong>Opponent opens too wide:</strong> 3-bet more for value and as bluffs.</li>
+        </ul>
+        <p>The risk is that each exploit opens a hole in your own strategy. Exploit what you've seen, and drift back toward balance when the opponent adjusts. A good study loop: learn the baseline here, drill it on the <a href="#practice">practice</a> page, then review real hands on the <a href="#review">review</a> page.</p>
+      </article>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Hold'em GTO Lab · MIT licensed · runs entirely in your browser</span>
+    <span>For study and post-session review only. <a href="https://github.com/Naingzwehtut/holdem-gto-lab#responsible-use" target="_blank" rel="noopener">Responsible use</a></span>
+  </div>
+</footer>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
