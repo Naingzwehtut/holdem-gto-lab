@@ -27,7 +27,7 @@
     "poker-trainer"
   ],
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "scripts": {
     "start": "node scripts/serve.js",

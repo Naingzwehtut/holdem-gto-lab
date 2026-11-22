@@ -49,7 +49,7 @@ Commercial GTO tools cost $30–$100 a month and hide how they work. This lab gi
 
 ## Quick start
 
-Use the [live app](https://naingzwehtut.github.io/holdem-gto-lab/), or run it locally (Node 20+):
+Use the [live app](https://naingzwehtut.github.io/holdem-gto-lab/), or run it locally (Node 22+):
 
 ```bash
 git clone https://github.com/Naingzwehtut/holdem-gto-lab.git
