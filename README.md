@@ -12,7 +12,7 @@ Solver-style preflop charts, a postflop spot analyzer, an equity calculator, han
 ![Zero dependencies](https://img.shields.io/badge/runtime%20dependencies-0-blue)
 ![Vanilla JS](https://img.shields.io/badge/vanilla-JavaScript-f7df1e)
 
-<img src="docs/screenshots/ranges.jpg" alt="Preflop range chart for BB vs BTN with A5s selected, showing 3-bet frequency, equity and explanation" width="820">
+<img src="docs/demo.gif" alt="Demo: preflop charts, hand history import, spot analyzer, screenshot scanner, preflop trainer and lessons" width="820">
 
 </div>
 
